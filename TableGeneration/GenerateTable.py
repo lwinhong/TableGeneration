@@ -37,7 +37,9 @@ class GenerateTable:
             cell_max_height=0,
             brower="chrome",
             brower_width=1920,
-            brower_height=1920, ):
+            brower_height=1920,
+            chrome_driver_path=None,
+            border_style=None):
         self.output = output  # wheter to store images separately or not
         self.ch_dict_path = ch_dict_path
         self.en_dict_path = en_dict_path
@@ -57,6 +59,7 @@ class GenerateTable:
         self.brower = brower  # brower used to generate html table
         self.brower_height = brower_height  # brower height
         self.brower_width = brower_width  # brower width
+        self.border_style = border_style
 
         if self.brower == "chrome":
             from selenium.webdriver import Chrome as Brower
@@ -67,7 +70,9 @@ class GenerateTable:
         opts = Options()
         opts.add_argument("--headless")
         opts.add_argument("--no-sandbox")
-        self.driver = Brower(options=opts)
+        # opts.add_argument("--executable_path "+ chrome_driver_path)
+
+        self.driver = Brower(executable_path=chrome_driver_path, options=opts)
 
         self.is_macos = platform.system() == "Darwin"
         self.ratio = 2
@@ -135,7 +140,7 @@ class GenerateTable:
                 self.max_span_value,
                 self.color_prob,
                 self.cell_max_width,
-                self.cell_max_height, )
+                self.cell_max_height, self.border_style)
             # get table of rows and cols based on unlv distribution and get features of this table
             # (same row, col and cell matrices, total unique ids, html conversion of table and its category)
             id_count, html_content, structure, border = table.create()

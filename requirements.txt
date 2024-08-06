@@ -1,5 +1,7 @@
 selenium==3.8.1
-tqdm
-numpy
-opencv-python
-Pillow
+tqdm~=4.66.5
+numpy~=2.0.1
+opencv-python~=4.10.0.84
+Pillow~=10.4.0
+
+matplotlib~=3.8.4

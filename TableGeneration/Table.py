@@ -26,7 +26,8 @@ class Table:
                  max_span_value=20,
                  color_prob=0,
                  cell_max_width=0,
-                 cell_max_height=0):
+                 cell_max_height=0,
+                 border_style=None):
         assert cell_box_type in [
             'cell', 'text'
         ], "cell_box_type must in ['cell', 'text'],cell: use cell location as cell box; text: use location of text in cell as cell box"
@@ -100,7 +101,8 @@ class Table:
         }
 
         # 随机选择一种
-        self.border_type = random.choice(list(self.pre_boder_style.keys()))
+        self.border_type = border_style if border_style in self.pre_boder_style else random.choice(
+            list(self.pre_boder_style.keys()))
 
         self.spanflag = False
         '''cell_types matrix have two possible values:
@@ -196,7 +198,7 @@ class Table:
         txt = dict[random_star_idx:random_star_idx + txt_len]
         return list(txt)
 
-    def agnostic_span_indices(self, maxvalue, max_num=3):
+    def agnostic_span_indices(self, maxvalue, max_num=5):
         '''Spans indices. Can be used for row or col span
         Span indices store the starting indices of row or col spans while span_lengths will store
         the length of span (in terms of cells) starting from start index.'''
